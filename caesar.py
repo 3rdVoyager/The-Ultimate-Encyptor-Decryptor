@@ -2,17 +2,7 @@ print("Welcome to the Caesar Cipher Encryptor and Decryptor! This program allows
 
 # Function to perform Caesar cipher encryption or decryption based on the mode
 
-from main import get_input
-mode, message, key = get_input()
-
-def mode_selection():
-    if mode.lower() == 'e':
-        encrypt_caesar(message, key, mode)
-    elif mode.lower() == 'd':
-        decrypt_caesar(message, key, mode)
-
 def encrypt_caesar(message, key):
-    encrypted_message = ""
     # Loop through each character in the input message
     for char in message:
         # Check if the character is an alphabetic character
@@ -21,22 +11,20 @@ def encrypt_caesar(message, key):
             encrypted_message += chr((ord(char) - base + key) % 26 + base)
         else:
             encrypted_message += char
+    return encrypted_message
 
 
 def decrypt_caesar(message, key):
-    decrypted_message = ""
-    if key == 0:
-        force_decrypt(message)
-    else:
-        # Loop through each character in the input message
-        for char in message:
-            # Check if the character is an alphabetic character
-            if char.isalpha():
-                base = ord("a") if char.islower() else ord("A")
-                decrypted_message += chr((ord(char) - base - key) % 26 + base)
-            # If the character is not alphabetic, add it to the decrypted_message without changing it
-            else:
-                decrypted_message += char
+    # Loop through each character in the input message
+    for char in message:
+        # Check if the character is an alphabetic character
+        if char.isalpha():
+            base = ord("a") if char.islower() else ord("A")
+            decrypted_message += chr((ord(char) - base - key) % 26 + base)
+        # If the character is not alphabetic, add it to the decrypted_message without changing it
+        else:
+            decrypted_message += char
+    return decrypted_message
 
  
 def force_decrypt(encrypted_message):
