@@ -35,10 +35,6 @@ def decrypt_vigenere(message, key):
         decrypted_message.append(decrypted_char)
     return "".join(decrypted_message)
 
-# Example usage
-
-print("Welcome to the Vigenère Cipher Encryptor and Decryptor! This program allows you to encrypt and decrypt messages using a keyword. Let's get started!")
-
 def get_input():
     start=input("Type 'c' to start a new session or 'q' to quit: ")
     if start.lower() == 'q':
