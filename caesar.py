@@ -7,7 +7,7 @@ def get_key(cipher):
         while True:
             key = input("Enter the key (a number between 1 and 25): ")
             if key.isdigit() and 1 <= int(key) <= 25:
-                return key
+                return int(key)
             else:
                 print("Invalid key. Please enter a number between 1 and 25.")
 
@@ -42,9 +42,9 @@ def decrypt(message, key):
 def encrypt_decrypt(cipher, mode, message, key):
     if cipher == 'c':
         if mode == 'e':
-            return encrypt(message, int(key))
+            return encrypt(message, key)
         elif mode == 'd':
-            return decrypt(message, int(key))
+            return decrypt(message, key)
 
 
 

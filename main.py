@@ -39,17 +39,24 @@ def get_input():
 
 # This function prompts the user to enter a key for the chosen cipher, and includes error handling to ensure that the key is valid based on the requirements of the chosen cipher.
 def get_key(cipher):
-    caesar.get_key(cipher)
-    substitution.get_key(cipher)
-    vigenere.get_key(cipher)
+    if cipher == 'c':
+        return caesar.get_key(cipher)
+    elif cipher == 's':
+        return substitution.get_key(cipher)
+    elif cipher == 'v':
+        return vigenere.get_key(cipher)
+    encrypt_decrypt(cipher, mode, message, key)
 
 
 # This function takes the user's choices for cipher, mode, message, and key, and calls the appropriate encryption or decryption function from the chosen cipher module. It then displays the result to the user using the display_result function.
 def encrypt_decrypt(cipher, mode, message, key):
     result = ""
-    caesar.encrypt_decrypt(cipher, mode, message, key)
-    substitution.encrypt_decrypt(cipher, mode, message, key)
-    vigenere.encrypt_decrypt(cipher, mode, message, key)
+    if cipher == 'c':
+        result = caesar.encrypt_decrypt(cipher, mode, message, key)
+    elif cipher == 's':
+        result = substitution.encrypt_decrypt(cipher, mode, message, key)
+    elif cipher == 'v':
+        result = vigenere.encrypt_decrypt(cipher, mode, message, key)
     display_result(mode, result)
 
 # This function displays the result of the encryption or decryption process to the user, based on the chosen cipher and mode. It takes the cipher, mode, encrypted message, and decrypted message as parameters and prints the appropriate result to the console.
