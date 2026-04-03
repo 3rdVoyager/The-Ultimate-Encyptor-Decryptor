@@ -1,9 +1,9 @@
-print("Welcome to the Ultimate Encryptonator and Decryptonator! This program allows you to encrypt and decrypt messages using many different ciphers. You can choose which cipher to use and follow the prompts to encrypt or decrypt messages. Let's get started!")
-
 import sys
 import caesar
 import substitution
 import vigenere
+
+print("Welcome to the Ultimate Encryptonator and Decryptonator! This program allows you to encrypt and decrypt messages using many different ciphers. You can choose which cipher to use and follow the prompts to encrypt or decrypt messages. Let's get started!")
 
 # This function gets user input for the cipher, mode, message, and key, and imports the appropriate cipher module based on the user's choice. It also includes error handling to ensure that the user inputs valid choices for each prompt.
 def get_input():
@@ -45,7 +45,6 @@ def get_key(cipher):
         return substitution.get_key(cipher)
     elif cipher == 'v':
         return vigenere.get_key(cipher)
-    encrypt_decrypt(cipher, mode, message, key)
 
 
 # This function takes the user's choices for cipher, mode, message, and key, and calls the appropriate encryption or decryption function from the chosen cipher module. It then displays the result to the user using the display_result function.
