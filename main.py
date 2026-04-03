@@ -2,6 +2,7 @@ print("Welcome to the Ultimate Encryptonator and Decryptonator! This program all
 
 import sys
 import caesar
+import substitution
 
 # This function gets user input for the cipher, mode, message, and key, and imports the appropriate cipher module based on the user's choice. It also includes error handling to ensure that the user inputs valid choices for each prompt.
 def get_input():
@@ -19,8 +20,8 @@ def get_input():
     elif start == 'c':
         # Prompt the user to choose a cipher and repeat until a valid choice is made
         while True:
-            cipher = input("Choose a cipher: Caesar (c), Vigenère (v):").strip().lower()
-            if cipher in ['c', 'v']:
+            cipher = input("Choose a cipher: Caesar (c), Vigenère (v), Substitution (s): ").strip().lower()
+            if cipher in ['c', 'v', 's']:
                 break
             print("Invalid choice. Please try again.")
         #prompt the user to choose a mode and repeat until a valid choice is made
@@ -51,6 +52,14 @@ def get_key(cipher):
                 return key
             else:                
                 print("Invalid key. Please enter a non-empty string consisting of letters only.")
+    elif cipher.lower() == 's':
+        while True:
+            key = input("Enter a 26-letter substitution key (no repeats): ").strip().lower()
+            
+            if len(key) == 26 and key.isalpha() and len(set(key)) == 26:
+                return key
+            else:
+                print("Invalid key. Must be 26 unique letters.")
 
 # This function takes the user's choices for cipher, mode, message, and key, and calls the appropriate encryption or decryption function from the corresponding cipher module. It then displays the result to the user.
 def encrypt_decrypt(cipher, mode, message, key):
@@ -65,6 +74,11 @@ def encrypt_decrypt(cipher, mode, message, key):
             result = vigenere.encrypt_vigenere(message, key)
         elif mode == 'd':
             result = vigenere.decrypt_vigenere(message, key)
+    elif cipher == 's':
+        if mode == 'e':
+            result = substitution.encrypt_substitution(message, key)
+        elif mode == 'd':
+            result = substitution.decrypt_substitution(message, key)
     display_result(mode, result)
 
 # This function displays the result of the encryption or decryption process to the user, based on the chosen cipher and mode. It takes the cipher, mode, encrypted message, and decrypted message as parameters and prints the appropriate result to the console.

@@ -59,7 +59,6 @@ def force_decrypt(result):
             print("Returning to main menu.")
 
 
-
 def check_plausibility(result):
     letters = [char for char in result if char.isalpha()]
     # This function checks for common words or patterns in the decrypted message
