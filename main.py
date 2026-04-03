@@ -3,6 +3,7 @@ print("Welcome to the Ultimate Encryptonator and Decryptonator! This program all
 import sys
 import caesar
 import substitution
+import vigenere
 
 # This function gets user input for the cipher, mode, message, and key, and imports the appropriate cipher module based on the user's choice. It also includes error handling to ensure that the user inputs valid choices for each prompt.
 def get_input():
@@ -20,7 +21,7 @@ def get_input():
     elif start == 'c':
         # Prompt the user to choose a cipher and repeat until a valid choice is made
         while True:
-            cipher = input("Choose a cipher: Caesar (c), Vigenère (v), Substitution (s): ").strip().lower()
+            cipher = input("Choose a cipher: Caesar (c), Substitution (s), Vigenère (v): ").strip().lower()
             if cipher in ['c', 'v', 's']:
                 break
             print("Invalid choice. Please try again.")
@@ -38,47 +39,17 @@ def get_input():
 
 # This function prompts the user to enter a key for the chosen cipher, and includes error handling to ensure that the key is valid based on the requirements of the chosen cipher.
 def get_key(cipher):
-    if cipher.lower() == 'c':
-        while True:
-            key = input("Enter the key (a number between 1 and 25): ")
-            if key.isdigit() and 1 <= int(key) <= 25:
-                return key
-            else:
-                print("Invalid key. Please enter a number between 1 and 25.")
-    elif cipher.lower() == 'v':
-        while True:
-            key = input("Enter the keyword (a non-empty string): ").strip()
-            if key.isalpha():
-                return key
-            else:                
-                print("Invalid key. Please enter a non-empty string consisting of letters only.")
-    elif cipher.lower() == 's':
-        while True:
-            key = input("Enter a 26-letter substitution key (no repeats): ").strip().lower()
-            
-            if len(key) == 26 and key.isalpha() and len(set(key)) == 26:
-                return key
-            else:
-                print("Invalid key. Must be 26 unique letters.")
+    caesar.get_key(cipher)
+    substitution.get_key(cipher)
+    vigenere.get_key(cipher)
 
-# This function takes the user's choices for cipher, mode, message, and key, and calls the appropriate encryption or decryption function from the corresponding cipher module. It then displays the result to the user.
+
+# This function takes the user's choices for cipher, mode, message, and key, and calls the appropriate encryption or decryption function from the chosen cipher module. It then displays the result to the user using the display_result function.
 def encrypt_decrypt(cipher, mode, message, key):
     result = ""
-    if cipher == 'c':
-        if mode == 'e':
-            result = caesar.encrypt_caesar(message, int(key))
-        elif mode == 'd':
-            result = caesar.decrypt_caesar(message, int(key))
-    elif cipher == 'v':
-        if mode == 'e':
-            result = vigenere.encrypt_vigenere(message, key)
-        elif mode == 'd':
-            result = vigenere.decrypt_vigenere(message, key)
-    elif cipher == 's':
-        if mode == 'e':
-            result = substitution.encrypt_substitution(message, key)
-        elif mode == 'd':
-            result = substitution.decrypt_substitution(message, key)
+    caesar.encrypt_decrypt(cipher, mode, message, key)
+    substitution.encrypt_decrypt(cipher, mode, message, key)
+    vigenere.encrypt_decrypt(cipher, mode, message, key)
     display_result(mode, result)
 
 # This function displays the result of the encryption or decryption process to the user, based on the chosen cipher and mode. It takes the cipher, mode, encrypted message, and decrypted message as parameters and prints the appropriate result to the console.

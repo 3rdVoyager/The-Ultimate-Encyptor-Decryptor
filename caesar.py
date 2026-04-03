@@ -1,6 +1,18 @@
-# Function to perform Caesar cipher encryption or decryption based on the mode
+# This module implements the Caesar cipher, which is a simple substitution cipher that shifts each letter in the plaintext by a fixed number of positions down the alphabet. The module includes functions for getting the key from the user, encrypting and decrypting messages, determining which function to call based on the user's choice of mode (encryption or decryption), and an experimental function for force decrypting messages without knowing the key.
 
-def encrypt_caesar(message, key):
+
+# The get_key function prompts the user to enter a key for the Caesar cipher, which must be a number between 1 and 25. It includes error handling to ensure that the user inputs a valid key.
+def get_key(cipher):
+    if cipher.lower() == 'c':
+        while True:
+            key = input("Enter the key (a number between 1 and 25): ")
+            if key.isdigit() and 1 <= int(key) <= 25:
+                return key
+            else:
+                print("Invalid key. Please enter a number between 1 and 25.")
+
+# The encrypt function takes a message and a key, and returns the encrypted message by shifting each letter in the message by the specified number of positions. 
+def encrypt(message, key):
     result = ""
     # Loop through each character in the input message
     for char in message:
@@ -12,8 +24,8 @@ def encrypt_caesar(message, key):
             result += char
     return result
 
-
-def decrypt_caesar(message, key):
+# The decrypt function takes an encrypted message and a key, and returns the decrypted message by shifting each letter back by the specified number of positions.
+def decrypt(message, key):
     result = ""
     # Loop through each character in the input message
     for char in message:
@@ -26,7 +38,18 @@ def decrypt_caesar(message, key):
             result += char
     return result
 
- 
+# The encrypt_decrypt function determines whether to call the encrypt or decrypt function based on the user's choice of mode (encryption or decryption). 
+def encrypt_decrypt(cipher, mode, message, key):
+    if cipher == 'c':
+        if mode == 'e':
+            return encrypt(message, int(key))
+        elif mode == 'd':
+            return decrypt(message, int(key))
+
+
+
+# The following functions are for force decrypting a message encrypted with the Caesar cipher without knowing the key, by trying all possible keys and checking for plausibility of the decrypted messages. This is an experimental feature that is undergoing development.
+"""
 def force_decrypt(result):
     found = False
     print("Attempting to force decrypt the message with all possible keys.")
@@ -85,3 +108,4 @@ def check_plausibility(result):
         else:
             consonant_run = 0
     return True
+"""
